@@ -1,0 +1,18 @@
+.app {
+    display: flex;
+    justify-content: center;
+}
+
+.app-wrapper {
+    width: 900px;
+}
+
+.todo-form {
+    padding-left: 37px;
+    padding-right: 37px;
+}
+
+.todo-button {
+    margin-top: 15px;
+    float: right;
+}
