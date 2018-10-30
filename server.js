@@ -15,31 +15,32 @@ fs.readFile('todolist.json', (err, data) => {
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
-// app.get('*', (req, res) => {
-//    res.sendFile(__dirname + '/public/index.html');
-// });
-
 app.post('/todo', (req, res) => {
-    todoList.push[req.body.todo];
-
     fs.readFile('todolist.json', (err, data) => {
         let json = JSON.parse(data.toString());
-        json.push({todo: req.body.todo});
+        json.push({id: json.length + 1, todo: req.body.todo});
 
         fs.writeFile('todolist.json', JSON.stringify(json), err => {
-            console.log(err);
+            res.json({ success: true, todoList: json});
         });
     });
-
-    res.json({ success: true });
 });
 
 app.get('/todo', (req, res) => {
     res.json({ todoList: todoList })
 });
 
-app.delete('/todo', (req, res) => {
-   res.json({ success: true });
+app.post('/todo/delete', (req, res) => {
+    if(req.body.todoItems.length > 0) {
+        fs.readFile('todolist.json', (err, data) => {
+            let json = JSON.parse(data.toString()).filter(todo => !req.body.todoItems.some(el => el === todo.id));
+
+            fs.writeFile('todolist.json', JSON.stringify(json), err => {
+                console.log(err);
+            });
+        })
+    }
+    res.json({ success: true });
 });
 
 app.listen(port);

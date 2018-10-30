@@ -16,3 +16,12 @@
     margin-top: 15px;
     float: right;
 }
+
+.todo-button__delete {
+    margin-right: 10px;
+}
+
+.todo-title {
+    text-align: center;
+    text-transform: uppercase;
+}
